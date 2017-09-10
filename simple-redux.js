@@ -1,17 +1,26 @@
+/* names in const */
+const SHOW_LOADER = 'SHOW_LOADER';
+const HIDE_LOADER = 'HIDE_LOADER';
+
+/* Action Object */
 const actionShowLoader = {
-  type: 'show_loader'
+  type: SHOW_LOADER
 };
 
+/* Action Object */
 const actionHideLoader = {
-  type: 'hide_loader'
+  type: HIDE_LOADER
 };
 
-const reducer = (state = false, action) => {
-  if (action.type === 'show_loader') {
-    return {loading: true};
+/* Reducer - simple pure function */
+const loader = (state = {}, action) => {
+  if (action.type === SHOW_LOADER) {
+    const loading = {loading: true};
+    return {...state, ...loading} ;
   }
-  else if (action.type === 'hide_loader') {
-    return {loading: false};
+  else if (action.type === HIDE_LOADER) {
+    const loading = {loading: false};
+    return {...state, ...loading} ;
   }
   else {
     return state;
@@ -45,7 +54,8 @@ const createStore = (reducers, initialStore) => {
   };
 };
 
-const store = createStore([reducer], {loading: false});
+const initialState = {};
+const store = createStore([loader], initialState);
 
 const toggleLoader = () => {
   const [loaderEl] = document.getElementsByClassName('loader-wrapper');
